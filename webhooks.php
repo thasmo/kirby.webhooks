@@ -8,22 +8,25 @@ if (c::get('webhooks') !== true || !count($endpoints = c::get('webhooks.endpoint
 	return;
 }
 
+# Get property blacklist.
+$blacklist = c::get('webhooks.blacklist', ['password', 'secret']);
+
 # Process hooks.
 foreach (require 'lib/hooks.php' as $hook) {
 
 	# Register hook.
-	$kirby->set('hook', $hook, function ($current, $prior = NULL) use ($hook, $endpoints) {
+	$kirby->set('hook', $hook, function ($current, $prior = NULL) use ($hook, $endpoints, $blacklist) {
 
 		# Create payload.
 		$payload = [
 			'hook' => $hook,
 			'site' => site()->url(),
-			'user' => webhooksGetData(site()->user()),
-			'data' => webhooksGetData($current),
+			'user' => webhooksGetData(site()->user(), $blacklist),
+			'data' => webhooksGetData($current, $blacklist),
 		];
 
 		# Add diff to payload.
-		if($prior && ($diff = webhooksGetDiff(webhooksGetData($current), webhooksGetData($prior)))) {
+		if($prior && ($diff = webhooksGetDiff(webhooksGetData($current, $blacklist), webhooksGetData($prior, $blacklist)))) {
 			$payload['diff'] = $diff;
 		}
 

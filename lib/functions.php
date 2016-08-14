@@ -2,19 +2,37 @@
 
 /**
  * @param array $data
- * @return array
+ * @param array $keys
  */
-function webhooksCleanData(array $data) {
-	return array_diff_key($data, array_flip(['password', 'secret']));
+function webhooksCleanData(array &$data, array $keys) {
+	foreach($keys as $key) {
+		unset($data[$key]);
+	}
+
+	foreach ($data as &$value) {
+		if (is_array($value)) {
+			webhooksCleanData($value, $keys);
+		}
+	}
 }
 
 /**
  * @param $object
- * @return array
+ * @param null $blacklist
+ * @return mixed
  */
-function webhooksGetData($object) {
+function webhooksGetData($object, $blacklist = null) {
+
+	# Get object's relevant data.
 	$data = method_exists($object, 'data') ? $object->data() : $object->toArray();
-	return webhooksCleanData($data);
+
+	# Clean data.
+	if (is_array($blacklist)) {
+		webhooksCleanData($data, $blacklist);
+	}
+
+	# Return data.
+	return $data;
 }
 
 /**
