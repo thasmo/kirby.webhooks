@@ -103,9 +103,9 @@ c::set('webhooks', true);
 Define HTTP endpoints.
 ```php
 c::set('webhooks.endpoints', [
-    'http://domain-1.com/all-events/,
-    'http://domain-2.com/page-events-only/ => ['panel.page'],
-    'http://domain-3.com/user-events-only/ => ['panel.user'],
+    'http://domain-1.com/all-events/',
+    'http://domain-2.com/page-events-only/' => ['panel.page'],
+    'http://domain-3.com/user-events-only/' => ['panel.user'],
 ]);
 ```
 
