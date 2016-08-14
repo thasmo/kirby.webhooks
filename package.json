@@ -1,0 +1,25 @@
+{
+  "name": "@thasmo/kirby-webhooks",
+  "type": "kirby-plugin",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Push Kirby hook events to HTTP endpoints.",
+  "author": {
+    "name": "Thomas Deinhamer",
+    "email": "hi@thasmo.com",
+    "url": "http://thasmo.com/"
+  },
+  "keywords": [
+    "kirby",
+    "plugin",
+    "cms",
+    "hook",
+    "webhook",
+    "push"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thasmo/kirby.webhooks"
+  },
+  "bugs": "https://github.com/thasmo/kirby.webhooks/issues"
+}
