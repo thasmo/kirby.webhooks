@@ -13,7 +13,7 @@ holding a `application/json` body with the hook name, the user-data of the user 
 triggered the hook and the actual page data including a diff with the old page data.
 
 * `hook` holds the name of the triggered hook.
-* `site` holds the site's base URL from where the request originated.
+* `host` holds the hostname from where the request originated.
 * `user` holds the data of the user who triggered the hook.
 * `data` holds the new page data.
 * `diff` holds the page's old page data which changed.
@@ -22,7 +22,7 @@ triggered the hook and the actual page data including a diff with the old page d
 ```json
 {
     "hook": "panel.page.update",
-    "site": "http:\/\/127.0.0.1",
+    "host": "127.0.0.1",
     "user": {
         "username": "thasmo",
         "email": "hi@thasmo.com",
