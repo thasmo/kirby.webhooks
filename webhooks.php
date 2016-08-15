@@ -4,12 +4,12 @@
 require __DIR__ . '/lib/functions.php';
 
 # Check if enabled.
-if (c::get('webhooks') !== true || !count($endpoints = c::get('webhooks.endpoints'))) {
+if (C::get('webhooks') !== true || !count($endpoints = C::get('webhooks.endpoints'))) {
 	return;
 }
 
 # Get property blacklist.
-$blacklist = c::get('webhooks.blacklist', ['password', 'secret']);
+$blacklist = C::get('webhooks.blacklist', ['password', 'secret']);
 
 # Process hooks.
 foreach (require 'lib/hooks.php' as $hook) {
