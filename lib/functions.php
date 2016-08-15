@@ -23,6 +23,11 @@ function webhooksCleanData(array &$data, array $keys) {
  */
 function webhooksGetData($object, $blacklist = null) {
 
+	# Return empty object.
+	if(!$object) {
+		return [];
+	}
+
 	# Get object's relevant data.
 	$data = method_exists($object, 'data') ? $object->data() : $object->toArray();
 
