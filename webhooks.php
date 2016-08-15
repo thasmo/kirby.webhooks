@@ -11,24 +11,28 @@ if (C::get('webhooks') !== true || !count($endpoints = C::get('webhooks.endpoint
 # Get property blacklist.
 $blacklist = C::get('webhooks.blacklist', ['password', 'secret']);
 
+# Create payload.
+$payload = [
+	'hook' => null,
+	'host' => parse_url(site()->url(), PHP_URL_HOST),
+	'user' => webhooksGetData(site()->user(), $blacklist),
+	'data' => null,
+];
+
 # Process hooks.
 foreach (require 'lib/hooks.php' as $hook) {
 
 	# Register hook.
-	$kirby->set('hook', $hook, function ($current, $prior = NULL) use ($hook, $endpoints, $blacklist) {
+	$kirby->set('hook', $hook, function ($current, $prior = null) use ($hook, $payload, $endpoints, $blacklist) {
 
-		# Create payload.
-		$payload = [
-			'hook' => $hook,
-			'site' => site()->url(),
-			'user' => webhooksGetData(site()->user(), $blacklist),
-			'data' => webhooksGetData($current, $blacklist),
-		];
+		# Get data.
+		$currentData = webhooksGetData($current, $blacklist);
+		$priorData = webhooksGetData($prior, $blacklist);
 
-		# Add diff to payload.
-		if($prior && ($diff = webhooksGetDiff(webhooksGetData($current, $blacklist), webhooksGetData($prior, $blacklist)))) {
-			$payload['diff'] = $diff;
-		}
+		# Update payload.
+		$payload['hook'] = $hook;
+		$payload['data'] = $currentData;
+		$payload['diff'] = webhooksGetDiff($currentData, $priorData);
 
 		# Create stream-context.
 		$context = stream_context_create(['http' => [
