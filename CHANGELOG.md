@@ -2,7 +2,7 @@
 
 ## [next]
 
-## Changed
+### Changed
 - `site` was changed to `host` and holds the hostname instead of the site URL.
 - The request now always contains a `diff` property which may be `null` if no changes were detected.
 
