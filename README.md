@@ -24,12 +24,12 @@ triggered the hook and the actual page data including a diff with the old page d
     "hook": "panel.page.update",
     "host": "127.0.0.1",
     "user": {
-        "username": "thasmo",
-        "email": "hi@thasmo.com",
+        "username": "user",
+        "email": "user@domain.tld",
         "language": "en",
         "role": "admin",
-        "firstname": "Thasmo",
-        "lastname":" Deinhamer",
+        "firstname": "first",
+        "lastname":" last",
         "history": []
     },
     "data":{
